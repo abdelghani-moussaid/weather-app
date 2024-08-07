@@ -8,14 +8,11 @@ async function getWeatherData(location) {
       throw new Error(`Response status: ${response.status}`);
     }
     const weather = await response.json();
-    console.log(filterWeatherData(weather));
-    // console.log(weather);
+    return filterWeatherData(weather);
   } catch (error) {
     console.log(error);
   }
 }
-
-getWeatherData("paris");
 
 function filterWeatherData(weather) {
   let currentConditions = weather.currentConditions;
@@ -126,3 +123,17 @@ function filterWeatherData(weather) {
 
   return result;
 }
+
+function formHandler() {
+  const form = document.querySelector("#locationForm");
+  form.addEventListener("submit", (e) => {
+    const data = new FormData(form);
+    const location = data.get("location");
+    getWeatherData(location).then((value) => {
+      console.log(value);
+    });
+    e.preventDefault();
+  });
+}
+
+formHandler();

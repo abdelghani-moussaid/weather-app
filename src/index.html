@@ -6,10 +6,26 @@
     <title>Weather App</title>
   </head>
   <body>
-    <form id="locationForm">
-      <label for="location">Location</label>
-      <input type="text" id="location" name="location" />
-      <input type="submit" value="Submit" />
-    </form>
+    <header>
+      <form id="locationForm">
+        <label for="location">Location</label>
+        <input type="text" id="location" name="location" />
+        <input type="submit" value="Submit" />
+      </form>
+    </header>
+    <div class="container">
+      <!-- <div class="location-data"></div>
+      <div class="current-conditions"></div>
+      <div class="day-forecast">
+        <div class="today-forecast"></div>
+        <div class="forecast-15"></div>
+      </div>
+      <div class="hour-forecast"></div> -->
+    </div>
+
+    <canvas
+      id="myChart"
+      style="width: 100%; max-width: 600px; height: 100%; min-height: 200px"
+    ></canvas>
   </body>
 </html>

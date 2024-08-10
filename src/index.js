@@ -11,6 +11,8 @@ async function getWeatherData(location) {
       throw new Error(`Response status: ${response.status}`);
     }
     const weather = await response.json();
+    var errorElement = document.getElementById("error");
+    errorElement.style.display = "none";
     return filterWeatherData(weather);
   } catch (error) {
     showError("Cette Adresse est introuvable");

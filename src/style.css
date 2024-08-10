@@ -1,0 +1,154 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+
+.search {
+  width: 100%;
+  /* position: relative; */
+  display: flex;
+}
+
+.searchTerm {
+  width: 100%;
+  border: 3px solid #6366f1;
+  border-right: none;
+  padding: 5px;
+  height: 20px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9dbfaf;
+  font-size: 1.2rem;
+}
+
+.searchTerm:focus {
+  color: #1e1b4b;
+}
+
+.searchButton {
+  width: 40px;
+  height: 36px;
+  border: 1px solid #6366f1;
+  background: #6366f1;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.wrap {
+  width: 70%;
+  max-width: 400px;
+  padding: 32px 0;
+  /* position: absolute; */
+  /* top: 50%;
+  left: 50%; */
+  /* transform: translate(-50%, -50%); */
+  margin: 0 auto;
+}
+
+body {
+  background-color: #c7d2fe;
+  font-family: "Open Sans", sans-serif;
+  color: #1e1b4b;
+  padding: 6px;
+}
+
+#resolvedAddress {
+  font-size: 1.6rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.current-conditions {
+  margin: 36px 16px;
+}
+
+.current-conditions img {
+  display: block;
+  margin: 0 auto;
+  height: 150px;
+  width: auto;
+}
+.current-content {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: flex-end;
+  margin-top: 60px;
+}
+.current-content p {
+  margin: 0;
+}
+
+#current-temp {
+  font-size: 6rem;
+  font-weight: 700;
+  align-self: flex-end;
+}
+
+.sunrise,
+.sunset {
+  display: flex;
+  /* justify-content: flex-start; */
+  gap: 6px;
+  align-items: center;
+}
+
+.current-details img {
+  height: 20px;
+  width: auto;
+  margin: 0;
+}
+
+.sunrise-sunset {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+
+.current-details {
+  padding-bottom: 24px;
+}
+
+.daily-forecast img {
+  height: 24px;
+  width: auto;
+}
+
+.daily-forecast {
+  background-color: #eef2ff;
+  border-radius: 16px;
+  padding: 12px;
+  padding-bottom: 32px;
+}
+.card {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  /* grid-template-rows: 1fr; */
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(120px, 1fr);
+  overflow-x: auto;
+  /* justify-self: center; */
+  /* width: 20em; */
+}
+.card-item {
+  border: 1px solid #c7d2fe;
+  border-radius: 8px;
+  padding: 6px;
+}
+.graph {
+  display: flex;
+  justify-content: center;
+  margin: 24px 0;
+  background-color: #6366f1;
+  padding: 12px;
+  visibility: hidden;
+  border-radius: 16px;
+}
+#myChart {
+  width: 100%;
+  height: auto;
+  max-width: 800px !important;
+  max-height: 500px !important;
+}

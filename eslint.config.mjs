@@ -10,6 +10,7 @@ export default [
     rules: {
       "no-unused-vars": "warn",
       "no-undef": "warn",
+      "import/no-unused-modules": [1, { unusedExports: true }],
     },
   },
 ];

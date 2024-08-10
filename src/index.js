@@ -13,7 +13,7 @@ async function getWeatherData(location) {
     const weather = await response.json();
     return filterWeatherData(weather);
   } catch (error) {
-    console.log(error);
+    showError("Cette Adresse est introuvable");
   }
 }
 
@@ -84,8 +84,10 @@ function formHandler() {
   form.addEventListener("submit", (e) => {
     const data = new FormData(form);
     const location = data.get("location");
+
+    const graph = document.querySelector(".graph");
+    graph.style.visibility = "hidden";
     getWeatherData(location).then((weather) => {
-      console.log(weather);
       display(weather);
     });
     e.preventDefault();
@@ -103,23 +105,38 @@ function display(weather) {
   locationData.className = "location-data";
   const currentConditions = document.createElement("div");
   currentConditions.className = "current-conditions";
-  const daysForecast = document.createElement("div");
-  daysForecast.className = "days-forecast";
   const todayForecast = document.createElement("div");
   todayForecast.className = "today-forecast";
   const dailyForecast = document.createElement("div");
   dailyForecast.className = "daily-forecast";
-  const hourlyForecast = document.createElement("div");
-  hourlyForecast.className = "hourly-forecast";
-  const address = document.createElement("p");
-  address.id = "address";
-  address.textContent = weather.address;
   const resolvedAddress = document.createElement("p");
   resolvedAddress.id = "resolvedAddress";
   resolvedAddress.textContent = weather.resolvedAddress;
-  locationData.appendChild(address);
+  const sunrise = document.createElement("div");
+  sunrise.className = "sunrise";
+  const sunriseImage = document.createElement("img");
+  sunriseImage.src = require("./images/sunrise.svg");
+  const sunriseTime = document.createElement("p");
+  sunriseTime.id = "sunrise";
+  sunriseTime.textContent = weather.currentConditions.sunrise.slice(0, -3);
+  sunrise.appendChild(sunriseImage);
+  sunrise.appendChild(sunriseTime);
+  const sunset = document.createElement("div");
+  sunset.className = "sunset";
+  const sunsetImage = document.createElement("img");
+  sunsetImage.src = require("./images/sunset.svg");
+  const sunsetTime = document.createElement("p");
+  sunsetTime.id = "sunset";
+  sunsetTime.textContent = weather.currentConditions.sunset.slice(0, -3);
+  sunset.appendChild(sunsetImage);
+  sunset.appendChild(sunsetTime);
+  const sunriseSunset = document.createElement("div");
+  sunriseSunset.className = "sunrise-sunset";
+  sunriseSunset.appendChild(sunrise);
+  sunriseSunset.appendChild(sunset);
   locationData.appendChild(resolvedAddress);
-  const currIcon = require(`./images/${weather.currentConditions.icon}.png`);
+  locationData.appendChild(sunriseSunset);
+  const currIcon = require(`./images/${weather.currentConditions.icon}.svg`);
   const currImage = document.createElement("img");
   currImage.src = currIcon;
   const currCondition = document.createElement("p");
@@ -128,57 +145,59 @@ function display(weather) {
   const currFeelsLike = document.createElement("p");
   currFeelsLike.id = "current-feels-like";
   currFeelsLike.textContent =
-    Math.round(weather.currentConditions.feelslike) + "°";
-  const sunrise = document.createElement("p");
-  sunrise.id = "sunrise";
-  sunrise.textContent = weather.currentConditions.sunrise;
-  const sunset = document.createElement("p");
-  sunset.id = "sunset";
-  sunset.textContent = weather.currentConditions.sunset;
-  const currTemp = document.createElement("p");
+    "Ressentie : " + Math.round(weather.currentConditions.feelslike) + "°";
+  const currTemp = document.createElement("div");
   currTemp.id = "current-temp";
   currTemp.textContent = Math.round(weather.currentConditions.temp) + "°";
+  const currContent = document.createElement("div");
+  currContent.className = "current-content";
+  const currDetails = document.createElement("div");
+  currDetails.className = "current-details";
+  const minmax = document.createElement("p");
+  // minmax.className = "minmax";
+  // minmax.textContent =
+  //   "Min : " +
+  //   Math.round(weather.days[0].tempmin) +
+  //   "° | Max: " +
+  //   Math.round(weather.days[0].tempmax) +
+  //   "°";
+  currDetails.appendChild(currCondition);
+  currDetails.appendChild(currFeelsLike);
+  // currDetails.appendChild(minmax);
+  // currDetails.appendChild(sunrise);
+  // currDetails.appendChild(sunset);
+  currContent.appendChild(currTemp);
+  currContent.appendChild(currDetails);
   currentConditions.appendChild(currImage);
-  currentConditions.appendChild(currCondition);
-  currentConditions.appendChild(currFeelsLike);
-  currentConditions.appendChild(sunrise);
-  currentConditions.appendChild(sunset);
-  currentConditions.appendChild(currTemp);
+  currentConditions.appendChild(currContent);
 
   const todayHeader = document.createElement("h3");
   todayHeader.textContent = "Today";
-  const minmax = document.createElement("p");
-  minmax.className = "minmax";
-  minmax.textContent =
-    Math.round(weather.days[0].tempmin) +
-    "°/ " +
-    Math.round(weather.days[0].tempmax) +
-    "°";
 
-  const todayCondition = document.createElement("p");
-  todayCondition.className = "forecast-condition";
-  todayCondition.textContent = weather.days[0].conditions;
-  const icon = require(`./images/${weather.days[0].icon}.png`);
-  const todayImage = document.createElement("img");
-  todayImage.src = icon;
-  todayForecast.appendChild(todayHeader);
-  todayForecast.appendChild(minmax);
-  todayForecast.appendChild(todayImage);
-  todayForecast.appendChild(todayCondition);
+  // const todayCondition = document.createElement("p");
+  // todayCondition.className = "forecast-condition";
+  // todayCondition.textContent = weather.days[0].conditions;
+  // const icon = require(`./images/${weather.days[0].icon}.svg`);
+  // const todayImage = document.createElement("img");
+  // todayImage.src = icon;
+  // todayForecast.appendChild(todayHeader);
+  // todayForecast.appendChild(minmax);
+  // todayForecast.appendChild(todayImage);
+  // todayForecast.appendChild(todayCondition);
 
   const dailyForecastTitle = document.createElement("h3");
-  dailyForecastTitle.innerText = "15-DAY FORECAST";
+  dailyForecastTitle.innerText = "Prévisions à 15 jours";
   const card = document.createElement("div");
   card.className = "card";
   const locale = fr;
-  for (let i = 1; i < weather.days.length; i++) {
+  for (let i = 0; i < weather.days.length; i++) {
     const item = document.createElement("div");
     item.className = "card-item";
     const day = document.createElement("p");
     day.className = "day";
     day.innerText = format(weather.days[i].datetime, "EEEE", { locale });
 
-    const icon = require(`./images/${weather.days[i].icon}.png`);
+    const icon = require(`./images/${weather.days[i].icon}.svg`);
     const dayImage = document.createElement("img");
     dayImage.src = icon;
     const minmax = document.createElement("p");
@@ -199,8 +218,6 @@ function display(weather) {
   }
   dailyForecast.appendChild(dailyForecastTitle);
   dailyForecast.appendChild(card);
-  daysForecast.appendChild(todayForecast);
-  daysForecast.appendChild(dailyForecast);
 
   let hourlyTemp = [];
   let hours = [];
@@ -213,13 +230,16 @@ function display(weather) {
   if (chartStatus != undefined) {
     chartStatus.destroy();
   }
+
+  const graph = document.querySelector(".graph");
+  graph.style.visibility = "visible";
   new Chart("myChart", {
     type: "line",
     data: {
       labels: hours,
       datasets: [
         {
-          label: "24-Hour Forecast",
+          label: "Prévisions sur 24 heures",
           data: hourlyTemp,
           fill: false,
           borderColor: "rgb(75, 192, 192)",
@@ -227,10 +247,49 @@ function display(weather) {
         },
       ],
     },
+    options: {
+      plugins: {
+        legend: {
+          labels: {
+            color: "#eef2ff",
+            font: {
+              size: 18,
+            },
+          },
+        },
+      },
+      scales: {
+        x: {
+          grid: {
+            display: false,
+          },
+          ticks: {
+            callback: function (tick, index) {
+              return index % 2 ? "" : hours[tick];
+            },
+
+            color: "#eef2ff",
+          },
+        },
+        y: {
+          grid: {
+            display: false,
+          },
+          ticks: {
+            color: "#eef2ff",
+          },
+        },
+      },
+    },
   });
 
   container.appendChild(locationData);
   container.appendChild(currentConditions);
-  container.appendChild(daysForecast);
-  container.appendChild(hourlyForecast);
+  container.appendChild(dailyForecast);
+}
+
+function showError(message) {
+  var errorElement = document.getElementById("error");
+  errorElement.innerHTML = message;
+  errorElement.style.display = "block";
 }

@@ -20,23 +20,6 @@ Application météo en français utilisant l'API Visual Crossing. Affiche les co
 - Chart.js pour la visualisation des données
 - webpack et npm
 
-## Installation
-
-1. Cloner le repo
-2. `npm install`
-3. Créer `.env` avec `WEATHER_API_KEY=votre_clé`
-4. `npm run build`
-5. Ouvrir `dist/index.html`
-
-## Développement
-
-- `npm run start` pour le serveur de développement
-
-## Déploiement
-
-1. `npm run build`
-2. `npm run deploy` pour GitHub Pages
-
 ## Démo
 
 [Lien vers la démo](https://abdelghani-moussaid.github.io/weather-app/)

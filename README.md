@@ -1,27 +1,48 @@
-# Modern JavaScript Project Template
+# Application Météo
 
-A streamlined setup for JavaScript projects using Webpack, ESLint, and Prettier.
+## Description
 
-## Quick Start
+Application météo en français utilisant l'API Visual Crossing. Affiche les conditions actuelles, prévisions sur 15 jours et graphique détaillé des 24 heures actuelles.
 
-1. Clone this repo
-2. Run `npm install`
-3. Start dev server: `npm start`
-4. Build for production: `npm run build`
+## Fonctionnalités
 
-## Features
+- Recherche par adresse
+- Affichage en Celsius
+- Conditions météo actuelles
+- Prévisions sur 15 jours
+- Graphique des 24 heures avec Chart.js
+- Icônes météo de Visual Crossing
 
-- Webpack for bundling and asset management
-- ESLint and Prettier for code quality
-- Dev server with hot reloading
-- CSS, image, and font support
-- HTML templating
+## Technologies
 
-## Scripts
+- HTML, CSS, JavaScript
+- API Visual Crossing
+- Chart.js pour la visualisation des données
+- webpack et npm
 
-- `npm start`: Dev server
-- `npm run build`: Production build
-- `npm run watch`: Watch mode
-- `npm test`: Run tests (placeholder)
+## Installation
 
-For more details, see `webpack.config.js` and `eslint.config.mjs`.
+1. Cloner le repo
+2. `npm install`
+3. Créer `.env` avec `WEATHER_API_KEY=votre_clé`
+4. `npm run build`
+5. Ouvrir `dist/index.html`
+
+## Développement
+
+- `npm run start` pour le serveur de développement
+
+## Déploiement
+
+1. `npm run build`
+2. `npm run deploy` pour GitHub Pages
+
+## Démo
+
+[Lien vers la démo](https://abdelghani-moussaid.github.io/weather-app/)
+
+## Crédit
+
+- API et icônes : Visual Crossing
+- Visualisation : Chart.js
+- Projet inspiré par The Odin Project
